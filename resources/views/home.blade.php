@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('title')
-الصفحة الرئسية
+    {{ __('messages.homeLink') }}
 @endsection
 
 @section('content')
@@ -26,8 +26,8 @@
 
         <div class="lay">
             <div class="caption">
-                <h2 style="color:wheat; font-size: x-large; font-family: system-ui; font-weight: bolder;text-shadow: -8px 6px 3px #FFF;">
-                    أنت على بعد خطوة من مستقبلك
+                <h2 style="color:wheat; font-size: x-large; font-family: system-ui; font-weight: bolder;">
+                    {{ __('messages.introduction') }}
 
                 </h2>
 

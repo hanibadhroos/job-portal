@@ -11,13 +11,37 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\IterviewController;
+use App\Http\Requests\Request;
+use App\Jobs\EmailVerificationJob;
 use App\Models\Category;
 use App\Models\Company;
+use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
+
+use function Laravel\Prompts\alert;
 
 Route::get('/', function () {
     return view('home');
 })->name('home');
+
+
+
+////Switch language
+Route::middleware(['web'])->group(function () {
+    Route::get('/languageSwitch/{locale}', function ($locale) {
+        if (in_array($locale, ['en', 'ar'])) {
+            Session::put('locale', $locale);
+            session()->save(); // تأكد من حفظ الجلسة
+            App::setLocale($locale);
+        }
+        return redirect()->back();
+    })->name('language.switch');
+});
 
 
 // route go to page show tow links (register and login)
@@ -26,10 +50,44 @@ Route::get('/register', function () {
 })->name('registerPage');
 
 //// Email verification notice route
-Route::get('/email/verify',[UserController::class, 'verifyNotice'])->middleware('auth')->name('verification.notice');
+/////إرسال رابط التحقق
+Route::get('/email/verification-notification', function (Request $request) {
+    $user = Auth::user();
+    event(new Registered($user));
+    // EmailVerificationJob::dispatch($user);
+    return view('Email.verify');
+})->middleware(['auth'])->name('verification.resend');
 
-/////// Email Verification Handler
-Route::get('/email/verify/{id}/{hash}', [UserController::class,'verifyEmail'])->middleware(['auth', 'signed'])->name('verification.verify');
+//// Verify email
+Route::get('/email/verify/{id}/{hash}', function ($id, $hash) {
+    $user = User::find($id);
+
+    Log::info('User ID: ' . $id);
+
+    if (!$user) {
+        Log::error('User not found.');
+        return abort(404);
+    }
+
+    if (!hash_equals((string) $hash, sha1($user->getEmailForVerification()))) {
+        Log::error('Hash mismatch.');
+        return abort(403);
+    }
+
+    if ($user->hasVerifiedEmail()) {
+        Log::info('Email already verified.');
+        return to_route('login');
+    }
+
+    DB::transaction(function () use ($user) {
+        $user->markEmailAsVerified();
+        Log::info('Email marked as verified.');
+    });
+
+    return to_route('home');
+})->name('verification.verify');
+
+
 
 //Register route
 Route::get('companyRegisterPage', [CompanyController::class,'RegisterPage'])->name('companyRegisterPage');
@@ -72,7 +130,6 @@ Route::middleware('auth:companies')->controller(CompanyController::class)->group
 //Job seeker Routes
 //Jobseeker Register
 Route::post('/jobSeekerRegister',[UserController::class,'Register'])->name('jobseeker.register');
-Route::get('user/email_verify',[UserController::class,'VerifyEmail'])->name('verify.email');
 // Job seeker Login
 Route::get('user/login', [UserController::class,'loginForm'])->name('user.loginform');
 Route::post('user/login', [UserController::class,'login'])->name('user.login');

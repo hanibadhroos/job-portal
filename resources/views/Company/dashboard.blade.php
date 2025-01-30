@@ -33,7 +33,7 @@
 
 
 <div class="mt-0 page-title">
-    <h1 class="text-center mb-0 page-title pt-2">صفحة التحكم</h1>
+    <h1 class="text-center mb-0 page-title pt-2">{{ __('messages.dashboard') }}</h1>
 </div>
 <div class="container-fluid">
     <div class="row">
@@ -58,9 +58,9 @@
             <p class="text-center">{{ $my_company->email }}</p>
             {{-- Links --}}
             <ul >
-                <p class="bg-dark text-center"><a class="text-white " href="{{ route('company.companyJobs',$company) }}">الوظائف</a></p>
-                <p class="bg-dark text-center"><a class="text-white " href="{{ route('company.companyInterviews',$company) }}">المقابلات</a></p>
-                <p class="bg-dark text-center"><a class="text-white " href="{{ route('application.changeState') }}">الطلبات</a></p>
+                <p class="bg-dark text-center"><a class="text-white " href="{{ route('company.companyJobs',$company) }}">{{ __('messages.jobsLink') }}</a></p>
+                <p class="bg-dark text-center"><a class="text-white " href="{{ route('company.companyInterviews',$company) }}">{{ __('messages.interviews') }}</a></p>
+                <p class="bg-dark text-center"><a class="text-white " href="{{ route('application.changeState') }}">{{ __('messages.applications') }}</a></p>
 
             </ul>
         </aside>
@@ -75,10 +75,10 @@
 
             <div class="divs-parent text-center" >
                 <div class="btn text-white disabled mb-2 bg-success ">
-                     عدد الوظائف: <br> <b >{{ $jobs }} </b>
+                     {{ __('messages.jobsNumber') }}: <br> <b >{{ $jobs }} </b>
                 </div>
                 <div class="btn text-white disabled bg-primary ">
-                    تاريخ انشا الشركة: <br>
+                    {{ __('messages.created_at') }}:<br>
                     {{\Carbon\Carbon::parse($my_company->created_at)->format('Y-m-d')  }}
                  </div>
             </div>

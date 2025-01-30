@@ -81,6 +81,7 @@ class JobController extends Controller
         }
         $dataToUpdate['title']=$request->title;
         $dataToUpdate['Requirments']=$request->Requirments;
+        $dataToUpdate['salary']=$request->salary;
         $dataToUpdate['Location']=$request->location;
         $dataToUpdate['updated_at']=date('Y-m-d H:i:s');
 

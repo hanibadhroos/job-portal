@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 @section('title')
- تفاصيل الملف الشخصي
+    {{ __('messages.profileDetails') }}
 @endsection
 
 @php
@@ -12,7 +12,7 @@
     <div class="card w-75 m-auto">
 
         <div class="card-header">
-            <h2 class="card-title text-center">تفاصيل ملفك </h2>
+            <h2 class="card-title text-center">{{ __('messages.details_btn') }}</h2>
         </div>
         <div class="row">
             <div class="col-md-2">
@@ -20,15 +20,15 @@
             </div>
 
             <div class="col-md-8">
-                <label >الموهل العلمي:</label>
+                <label >{{ __('messages.jobSeekerEdu') }}:</label>
                 <b>{{ $myProfile->education }}</b>
                 @if ($myProfile->experience != null)
                     <hr>
-                    <label> الخبرات:</label>
+                    <label> {{ __('messages.jobSeekerExp') }}:</label>
                     <b>{{ $myProfile->experience }}</b>
                 @endif
                 <hr>
-                <label >المهارات:</label>
+                <label >{{ __('messages.jobSeekerSkills') }}:</label>
                 <b>{{ $myProfile->skills }}</b>
             </div>
         </div>

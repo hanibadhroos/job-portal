@@ -17,14 +17,14 @@
 
     <dl class="row w-50 mt-2 job-dl">
         <dt class="col-lg-4 bg-secondary text-light p-2">
-            عنوان الوظيفة:
+             {{ __('messages.title') }}:
         </dt>
         <dd class="col-sm-10">
             {{ $job->title }}
         </dd>
 
         <dt class="col-lg-4 bg-secondary text-light p-2">
-            متطلبات الوظيفة:
+             {{ __('messages.requirments') }}:
         </dt>
         <dd class="col-sm-10">
            {{$job->Requirments}}
@@ -32,21 +32,21 @@
 
 
         <dt class="col-lg-4 bg-secondary text-light p-2">
-            موقع العمل:
+             {{ __('messages.location') }}:
         </dt>
         <dd class="col-sm-10">
             {{ $job->Location }}
         </dd>
 
         <dt class="col-lg-4 bg-secondary text-light p-2">
-           تاريخ النشر:
+            {{ __('messages.date') }}:
         </dt>
         <dd class="col-sm-10">
             {{ $job->created_at }}
         </dd>
 
         <dt class="col-lg-4 bg-secondary text-light p-2">
-            اسم الشركة:
+            {{ __('messages.company_name') }}:
         </dt>
         <dd class="col-sm-10">
            {{-- PHP code for get the company name  --}}
@@ -62,11 +62,11 @@
            {{ $companyName }}
         </dd>
         @if (Auth::guard('web')->check() && empty($application))
-            <a href="#" class="btn btn-success mb-2">تقديم</a>
+            <a href="#" class="btn btn-success mb-2">{{ __('messages.apply_btn') }}</a>
         @elseif (Auth::guard('companies')->check() && $job->company_id==Auth::guard('companies')->id())
-            <a href="#" class="btn btn-info mb-2">تعديل</a>
+            <a href="#" class="btn btn-info mb-2">{{ __('messages.edit_btn') }}</a>
         @endif
     </dl>
-    <a href="javascript:history.back()" class="btn btn-secondary w-25 mr-auto ml-auto mt-4">رجوع</a>
+    <a href="javascript:history.back()" class="btn btn-secondary w-25 mr-auto ml-auto mt-4">{{ __('messages.back') }}</a>
 
 @endsection

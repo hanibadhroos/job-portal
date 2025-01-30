@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('title')
-    الطلبات
+    {{ __('messages.applications') }}
 @endsection
 
 @php
@@ -27,12 +27,12 @@
     <thead>
         <tr>
             <th></th>
-            <th>عنوان الوظيفة</th>
-            <th>صاحب الطلب</th>
-            <th>تاريخ الطلب</th>
-            <th>موهلات صاحب الطلب</th>
-            <th>مهارات صاحب الطلب</th>
-            <th>خبرات صاحب الطلب</th>
+            <th>{{ __('messages.title') }}</th>
+            <th>{{ __('messages.jobSeeker') }}</th>
+            <th>{{ __('messages.created_at') }}</th>
+            <th>{{ __('messages.jobSeekerEdu') }}</th>
+            <th>{{ __('messages.jobSeekerSkills') }}</th>
+            <th>{{ __('messages.jobSeekerExp') }}</th>
         </tr>
     </thead>
     <tbody>
@@ -66,30 +66,30 @@
                     @if(!empty($profile->education))
                         {{ $profile->education }}
                     @else
-                        <span class="text-warning">لا يملك موهلات</span>
+                        <span class="text-danger">{{ __('messages.noEdu') }}</span>
                     @endif
                 </td>
                 <td>
                     @if(!empty($profile->skills))
                     {{ $profile->skills }}
                     @else
-                        <span class="text-warning">لا يملك مهارات</span>
+                        <span class="text-danger">{{ __('messages.noSkills') }}</span>
                     @endif
                 </td>
                 <td>
                     @if(!empty($profile->experience))
                     {{ $profile->experience }}
                     @else
-                        <span class="text-danger">لا يملك خبرات</span>
+                        <span class="text-danger">{{ __('messages.noExp') }}</span>
                     @endif
                 </td>
 
                 <td class="text-center">
-                    <a href="{{ route('job.details',$job->id) }}" class="btn btn-info mt-1">التفاصيل</a>
+                    <a href="{{ route('job.details',$job->id) }}" class="btn btn-info mt-1">{{ __('messages.details_btn') }}</a>
                     {{-- check--}}
                     @if (Auth::guard('companies')->check()==$company->id && empty($interview))
-                        <a href="{{ route('interview.create',$application->id) }}" class="btn btn-success mt-1">قبول </a>
-                        <a href="{{ route('application.reject',$user->id) }}" class="btn btn-danger mt-1">رفض </a>
+                        <a href="{{ route('interview.create',$application->id) }}" class="btn btn-success mt-1">{{ __('messages.accept_btn') }}</a>
+                        <a href="{{ route('application.reject',$user->id) }}" class="btn btn-danger mt-1">{{ __('messages.reject_btn') }}</a>
                     @else
                         <b>تم قبول الطلب وتحديد موعد المقابلة</b>
                     @endif

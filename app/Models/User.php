@@ -29,6 +29,9 @@ class User extends Authenticatable implements MustVerifyEmail
    {
        return $this->hasMany(Job::class);
    }
+   function job_alert(){
+        return $this->hasMany(Job_alert::class);
+   }
    function interview()
    {
        return $this->hasMany(Iterview::class);

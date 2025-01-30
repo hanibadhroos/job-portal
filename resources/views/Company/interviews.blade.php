@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('title')
-    المقابلات
+    {{ __('messages.interviews') }}
 @endsection
 
 @section('content')
@@ -17,11 +17,11 @@ use App\Models\User;
    <table class="table table-bordered">
        <thead>
            <tr>
-               <th>الرقم</th>
-               <th>التفاصيل</th>
-               <th>موعد المقابلة</th>
-               <th>عنوان الوظيفة </th>
-               <th>المرشح</th>
+               <th>{{ __('messages.no') }}</th>
+               <th>{{ __('messages.details_btn') }}</th>
+               <th>{{ __('messages.interviewDate') }}</th>
+               <th>{{ __('messages.title') }}</th>
+               <th>{{ __('messages.jobSeeker') }}</th>
            </tr>
        </thead>
        <tbody>
@@ -44,9 +44,9 @@ use App\Models\User;
                     <td>{{ $username}}</td>
                 </tr>
 
-                
+
             @endforeach
-           
+
        </tbody>
    </table>
 @endsection

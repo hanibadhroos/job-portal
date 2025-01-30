@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('title')
-    وظائفئ
+    {{ __('messages.jobsLink') }}
 @endsection
 
 
@@ -11,36 +11,36 @@
     $counter = 1;
 @endphp
 <div class="bg-dark text-light  mb-2">
-    <h2 class="text-center h-50">وظائفي</h2>
+    <h2 class="text-center h-50">{{ __('messages.jobsLink') }}</h2>
 </div>
-<a href="{{ route('job.create') }}" class="btn btn-success h-75 m-2" style="width: fit-content">نشر وظيفة جديدة</a>
+<a href="{{ route('job.create') }}" class="btn btn-success h-75 m-2" style="width: fit-content">{{ __('messages.createJobBtn') }}</a>
 
     @foreach ($jobs as $job)
 
     <div class="card w-50 m-auto ">
         <h1 class="card-header card-title text-center">
-                الوظيفة رقم {{ $counter }}
+                {{ __('messages.jobNO') }} {{ $counter }}
         </h1>
         <hr>
         <div class="card-body">
             {{-- Title --}}
             <div>
-                <label for=""> عنوان الوظيفة:</label>
+                <label for=""> {{ __('messages.title') }}:</label>
                 {{ $job->title }}
             </div>
             {{-- Requirments --}}
             <div>
-                <label for=""> متطلبات الوظيفة:</label>
+                <label for="">{{ __('messages.requirments') }}:</label>
                 {{ $job->Requirments }}
             </div>
             {{-- Location --}}
             <div>
-                <label for=""> موقع الوظيفة:</label>
+                <label for="">  {{ __('messages.location') }}:</label>
                 {{ $job->Location }}
             </div>
             {{--  job category --}}
             <div>
-                <label for=""> مجال الوظيفة:</label>
+                <label for=""> {{ __('messages.jobCategory') }}:</label>
                 @php
                     $categoryName = DB::table('categories')->where('id',$job->category_id)->value('name');
                 @endphp
@@ -49,17 +49,17 @@
             </div>
             {{-- date of publish --}}
             <div>
-                <label for="">  تاريخ النشر:</label>
+                <label for=""> {{ __('messages.created_at') }}:</label>
                 {{ \Carbon\Carbon::parse($job->created_at)->format('Y-m-d') }}
             </div>
 
             {{-- company operations --}}
             <div>
                 @if(Auth::guard('companies')->check()&& $job->company_id == Auth::guard('companies')->id())
-                    <a href="{{ route('job.edit',$job->id) }}" class="btn btn-success">تعديل</a>
-                    <a href="{{ route('job.destroy',$job->id) }}" class="btn btn-danger">حذف</a>
-                    <a href="{{ route('job.details',$job->id) }}" class="btn btn-info">التفاصيل</a>
-                    <a href="{{ route('job.applications',$job->id) }}" class="btn btn-primary">الطلبات</a>
+                    <a href="{{ route('job.edit',$job->id) }}" class="btn btn-success">{{ __('messages.edit_btn') }}</a>
+                    <a href="{{ route('job.destroy',$job->id) }}" class="btn btn-danger">{{ __('messages.delete_btn') }}</a>
+                    <a href="{{ route('job.details',$job->id) }}" class="btn btn-info">{{ __('messages.details_btn') }}</a>
+                    <a href="{{ route('job.applications',$job->id) }}" class="btn btn-primary">{{ __('messages.applications') }}</a>
 
                 @endif
             </div>

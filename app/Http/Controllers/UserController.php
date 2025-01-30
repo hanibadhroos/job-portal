@@ -19,6 +19,7 @@ use Laravel\Fortify\Http\Requests\LoginRequest;
 use App\Actions\Fortify\AttemptToAuthenticate;
 use App\Actions\Fortify\RedirectIfTwoFactorAuthenticatable;
 use App\Http\Response\LoginResponse;
+use App\Jobs\EmailVerificationJob;
 use App\Mail\VerifyEmail;
 use App\Models\Application;
 use App\Models\User;
@@ -79,16 +80,18 @@ class UserController extends Controller
         Auth::login($user);
 
         event(new Registered($user));
-        return to_route('profile.create');
-    }
-    public function verifyNotice($id, $hash){
-        return view('User.verify-email');
+        return view('Email.verify');
+
+        // if ($user) {
+        //     EmailVerificationJob::dispatch($user);
+        //     return view('Email.verify');
+        // }
+        // else{
+        //     return to_route('registerPage');
+        // }
+
     }
 
-    /////// Email Verification Handler
-    public function verifyEmail(){
-        
-    }
     public function Logout()
     {
         Auth::logout();
@@ -107,7 +110,7 @@ class UserController extends Controller
     public function interviews($user_id)
     {
         $interviews = Iterview::where('user_id',$user_id)->select('*')->orderby('created_at','DESC')->get();
-        if(!$interviews != [])
+        if($interviews)
         {
             return view('User.interviews',['interviews'=>$interviews]);
         }

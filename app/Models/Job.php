@@ -9,9 +9,10 @@ class Job extends Model
 {
     protected $table = 'job';
     protected $fillable=[
-        'title','company_id','category_id','Requirments','Location','created_at'
+        'title','company_id','category_id','Requirments','salary','Location','created_at'
     ];
     use HasFactory;
+
     function company()
     {
         return $this->belongsTo(Company::class);
@@ -34,6 +35,14 @@ class Job extends Model
     function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+
+    public static function matchingJobs($alert){
+        return self::whereIn('title', $alert->job_title)
+            ->whereIn('location',$alert->location)
+            ->whereIn('description',$alert->job_description)
+            ->where('category_id', $alert->category_id)->get();
     }
 
 }

@@ -12,9 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('job', function (Blueprint $table) {
-            $table->enum('jobType',['Full time','Part time','contract']);
-            $table->string('salary');
-            
+            $table->integer('min_salary')->nullable(); // الحد الأدنى للراتب
+            $table->integer('max_salary')->nullable(); // الحد الأقصى للراتب
+            $table->enum('job_type', ['full_time', 'part_time', 'remote', 'temporary'])->nullable();
+
         });
     }
 
@@ -22,7 +23,7 @@ return new class extends Migration
      * Reverse the migrations.
      */
     public function down(): void
-    {
+        {
         Schema::table('job', function (Blueprint $table) {
             //
         });

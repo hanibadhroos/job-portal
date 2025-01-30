@@ -25,11 +25,11 @@
     $counter++;
     // Get the job information
     $job =Job::where('id',$application->job_id)->select('*')->first();
-    
-    // Get job seeker (user)  
+
+    // Get job seeker (user)
     $user = User::where('id',$application->user_id)->select('*')->first();
 
-    // Get Profile 
+    // Get Profile
     $profile = Profile::where('user_id',$application->user_id)->select('*')->first();
 
     // Get company by company_id in job
@@ -38,14 +38,14 @@
     // check if interview has user_id and job_id, if true then hide link for this application
     $interview = Iterview::where('job_id',$job->id)->where('user_id',$user->id)->first();
 
-    @endphp 
+    @endphp
 
 <div class="card w-50 m-auto">
     <div class="card-header">
         <h3 class="card-title text-center">الطلب {{ $counter }}</h3>
     </div>
     <div class="card-body">
-        
+
         <div>
             <b>حالة القبول:</b>
 
@@ -53,9 +53,9 @@
         <div>
             <b>عنوان الوظيفة:</b>
             {{ $job->title }}
-        
+
         </div>
-        
+
         <div>
             <b>صاحب الطلب:</b>
             {{ $user->name }}
@@ -84,16 +84,16 @@
             @endif
 
         </div>
-    
-        <a href="{{ route('job.details',$job->id) }}" class="btn btn-info">تفاصيل الوظيفة</a>
+
+        <a href="{{ route('job.details',$job->id) }}" class="btn btn-info">{{ __('messages.delete_btn') }}</a>
         {{-- check--}}
         @if (Auth::guard('companies')->check()==$company->id && empty($interview))
-            <a href="{{ route('application.reject',$user->id) }}" class="btn btn-danger">رفض الطلب</a>
-            <a href="{{ route('interview.create',$application->id) }}" class="btn btn-success">قبول الطلب</a>
+            <a href="{{ route('application.reject',$user->id) }}" class="btn btn-danger">{{ __('messages.reject_btn') }}</a>
+            <a href="{{ route('interview.create',$application->id) }}" class="btn btn-success">{{ __('messages.accept_btn') }}</a>
         @else
-            <b>تم قبول الطلب وتحديد موعد المقابلة</b>
+            <b>{{ __('messages.accept_text') }}</b>
         @endif
-        
+
     </div>
 
     {{-- @endif --}}

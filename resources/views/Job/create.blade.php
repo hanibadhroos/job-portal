@@ -25,9 +25,11 @@
         <input id="title" type="text" name="title" class="form-control">
         <label for="Requirments">منطلبات الوظيفة:</label>
         <input id="Requirments" type="text" name="Requirments" class="form-control">
+        <label for="salary">Salary:</label>
+        <input type="number"  class="form-control" name="salary" id="salary">
         <label for="Location">موقع الوظيفة:</label>
         <input id="Location" type="text" name="Location" class="form-control">
-        
+
         <label for="category">المجال الوظيفي: </label>
         <select name="category" id="category" class="form-control">
 
@@ -39,6 +41,6 @@
         <button type="submit" class="btn btn-success mt-2">نشر الوظيفة</button>
     </form>
 </div>
-   
+
 
 @endsection

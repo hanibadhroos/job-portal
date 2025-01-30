@@ -8,6 +8,7 @@ use App\Models\Job;
 use App\Models\User;
 use App\Http\Requests\StoreIterviewRequest;
 use App\Http\Requests\UpdateIterviewRequest;
+use App\Jobs\sendAcceptJob;
 use Illuminate\Support\Facades\Auth;
 
 class IterviewController extends Controller
@@ -42,7 +43,15 @@ class IterviewController extends Controller
         $dataToInsert['job_id'] = $request->job_id;
         $dataToInsert['user_id'] = $request->user_id;
         if(Auth::guard('companies')->check()){
-            Iterview::create($dataToInsert);
+            $interview = Iterview::create($dataToInsert);
+            if($interview){
+
+                //// First get the job using job_id
+                $customJob = Job::where('id',$request->job_id)->select('*')->first();
+                ///// Then get user using user_id
+                $user = User::where('id',$request->user_id)->select('*')->first();
+                sendAcceptJob::dispatch($user,$customJob, $dataToInsert['interviewDate']);
+            }
             $company = Auth::guard('companies')->user();
             return to_route('companydashboard',['company'=>$company])->with(['success'=>'تم تحديد موعدالمقابلة']);
         }

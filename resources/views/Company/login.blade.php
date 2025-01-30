@@ -1,33 +1,33 @@
 @extends('layouts.layout')
 
 @section('title')
-    Company Login
+    {{ __('messages.loginAsCompany') }}
 @endsection
 
 @section('content')
 @if (Session::has('success'))
     <div class="alert alert-danger" role="alert">
         {{ Session::get('success') }}
-    </div>    
+    </div>
 @endif
     <div class="card w-50" style="margin: auto">
         <div class="card-header">
-            <p class="card-title text-center"> تسجيل الدخول الى الشركة</p>
+            <p class="card-title text-center"> {{ __('messages.loginAsCompany') }}</p>
         </div>
 
         <div class="card-body">
             <form action="{{ route('company.login') }}" method="POST">
                 @csrf
-                <label for="email">البريد الالكتروني:</label>
+                <label for="email">{{ __('messages.email') }}:</label>
                 <input type="text" id="email" name="email" class="form-control" placeholder="Email">
-                
-                <label for="password">كلمة السر:</label>
+
+                <label for="password"> {{ __('messages.password') }}:</label>
                 <input type="password" id="password" name="password" class="form-control" placeholder="password">
 
-                <button type="submit" class="btn btn-primary mt-1">تسجيل الدخول</button>
+                <button type="submit" class="btn btn-primary mt-1">{{ __('messages.loginLink') }}</button>
             </form>
-            
-            
+
+
         </div>
     </div>
 

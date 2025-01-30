@@ -26,7 +26,7 @@
             <h2 class="card-title">تفاصيل الطلب {{ $counter }}</h2>
             </div>
             <div class="card-body">
-                <label for="">هل تم مشاهدةالطلب؟</label>
+                <label for="">{{ __('messages.viewedQuestion') }}</label>
                 @if ($application->status == 1)
                     <input type="text" disabled value="تمت المشاهدة" class="form-control">
                 @else
@@ -46,21 +46,21 @@
                 @endif
 
 
-                <label >تاريخ الطلب:</label>
+                <label >{{ __('messages.date') }}:</label>
                 <input type="text" disabled value="{{ $application->created_at }}" class="form-control">
 
                 <br>
-                <label for="">عنوان الوظيفة:</label>
+                <label for="">{{ __('messages.title') }}:</label>
                 <input type="text" disabled value="{{ $job->title }}" class="form-control">
                 <br>
 
-                <label for="">اسم الشركة: </label>
+                <label for="">{{ __('messages.company_name') }}: </label>
                 <input type="text" disabled value="{{ $company->name }}" class="form-control">
                 <br>
 
-                <a href="{{ route('job.details',$application->job_id) }}" class="btn btn-info">تفاصيل الوظيفة</a>
+                <a href="{{ route('job.details',$application->job_id) }}" class="btn btn-info">{{ __('messages.details_btn') }}</a>
                 @if(Auth::guard('web')->id()== $application->user_id)
-                    <a href="{{ route('application.delete',auth()->id()) }}" class="btn btn-danger">حذف الطلب</a>
+                    <a href="{{ route('application.delete',auth()->id()) }}" class="btn btn-danger">{{ __('messages.delete_btn') }}</a>
                 @endif
             </div>
         </div>

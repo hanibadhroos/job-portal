@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('title')
-تحديد مقابلة
+    {{ __('messages.addInterview') }}
 @endsection
 
 @section('content')
@@ -17,19 +17,19 @@ use App\Models\User;
 @endphp
     <div class="card w-50 ml-auto mr-auto mt-4">
         <div class="card-header">
-            <h2 class="card-title"> بيانات المقابلة</h2>
-           
+            <h2 class="card-title">{{ __('messages.interviews') }}</h2>
+
         </div>
         <div class="card-body">
             <form action="{{ route('interview.store') }}" method="POST">
                 @csrf
-                <label for="details">تفاصيل المقابلة:</label>
+                <label for="details">{{ __('messages.details_btn') }}:</label>
                 <textarea name="details" id="details" cols="30" rows="10" class="form-control"></textarea>
-                <label for="interviewDate">موعد المقابلة:</label>
+                <label for="interviewDate">{{ __('messages.interviewDate') }}:</label>
                 <input type="datetime-local" name="interviewDate" id="interviewDate" class="form-control">
                 <input type="hidden" name="job_id" value="{{ $job_id }}">
                 <input type="hidden" name="user_id" value="{{ $user_id }}">
-                <button class="btn btn-success mt-2">حفظ</button>
+                <button class="btn btn-success mt-2">{{ __('messages.saveBtn') }}</button>
             </form>
         </div>
     </div>

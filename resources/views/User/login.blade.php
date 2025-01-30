@@ -27,19 +27,19 @@
 
     <div class="card w-50" style="margin: auto">
         <div class="card-header">
-            <p class="card-title text-center"> تسجيل دخول مستخدم  </p>
+            <p class="card-title text-center">{{ __('messages.loginAsJobseeker') }}</p>
         </div>
 
         <div class="card-body " style="background-image:url({{ asset('images/login.jpg') }})">
             <form action="{{ route('user.login') }}" method="POST">
                 @csrf
-                <label for="email">البريد الالكتروني:</label>
+                <label for="email"> {{ __('messages.email') }}:</label>
                 <input type="text" id="email" name="email" class="form-control" placeholder="Email">
 
-                <label for="password">كلمة السر:</label>
+                <label for="password">{{ __('messages.password') }}:</label>
                 <input type="password" id="password" name="password" class="form-control" placeholder="password">
 
-                <button type="submit" class="btn btn-primary mt-1">تسجيل الدخول</button>
+                <button type="submit" class="btn btn-primary mt-1">{{ __('messages.loginLink') }}</button>
             </form>
 
 
