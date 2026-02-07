@@ -6,6 +6,7 @@ Companies can publish and manage job postings, review applications, shortlist ca
 Job seekers can browse and search for jobs, apply for suitable positions, and set up alerts for similar job opportunities.
 
 The Admin manages all companies, job seekers, and job postings, and has the authority to delete any incorrect or inappropriate account or job listing.
+
 ---
 
 ##🚀 Features
